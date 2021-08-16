@@ -45,6 +45,11 @@ default_args = {
     # 'trigger_rule': 'all_success'
 }
 # [END default_args]
+def print_context():
+    """Print the Airflow context and ds variable from the context."""
+    print(1)
+    print(1)
+    return 'Whatever you return gets printed in the logs'
 
 # [START instantiate_dag]
 with DAG(
@@ -57,11 +62,14 @@ with DAG(
 ) as dag:
     # [END instantiate_dag]
 
+
+
+
     # t1, t2 and t3 are examples of tasks created by instantiating operators
     # [START basic_task]
     t1 = PythonOperator(
-        task_id="python_task"
-        python_callable=airtask,
+        task_id = '111',
+        python_callable=print_context,
         dag=dag,
     )
 
