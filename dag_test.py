@@ -12,6 +12,7 @@ from airflow import DAG
 # Operators; we need this to operate!
 from airflow.operators.bash import BashOperator
 from airflow.utils.dates import days_ago
+from airflow.operators.bash import PythonOperator
 
 
 
@@ -45,11 +46,7 @@ default_args = {
     # 'trigger_rule': 'all_success'
 }
 # [END default_args]
-def print_context():
-    """Print the Airflow context and ds variable from the context."""
-    print(1)
-    print(1)
-    return 'Whatever you return gets printed in the logs'
+
 
 # [START instantiate_dag]
 with DAG(
@@ -67,13 +64,13 @@ with DAG(
 
     # t1, t2 and t3 are examples of tasks created by instantiating operators
     # [START basic_task]
-    t1 = PythonOperator(
-        task_id = '111',
-        python_callable=print_context,
+    
+    task = PythonOperator(
+        task_id='sleep_for_',
+        python_callable=airtask,
         dag=dag,
     )
-
     
 
-    t1
+    task
 # [END tutorial]
