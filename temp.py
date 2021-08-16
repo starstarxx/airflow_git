@@ -99,6 +99,10 @@ def smtp_send():
     except smtplib.SMTPException:
         print ("Error: 无法发送邮件")
         
+def airtask():
+    write_mysql(web_download())
+    smtp_send()
+        
 if __name__ == '__main__':
     write_mysql(web_download())
     smtp_send()
