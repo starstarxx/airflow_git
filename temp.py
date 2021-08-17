@@ -84,7 +84,9 @@ def smtp_send():
     #邮件正文内容
     message.attach(MIMEText('外汇牌价表格发送邮件', 'plain', 'utf-8'))
     # 构造附件1，传送当前目录下的 Excel 
-    att1 = MIMEText(open(Excel_name, 'rb').read(), 'base64', 'utf-8')
+    file_excel = open(Excel_name, 'rb')
+    att1 = MIMEText(file_excel.read(), 'base64', 'utf-8')
+    file_excel.close()
     att1["Content-Type"] = 'application/octet-stream'
     att1["Content-Disposition"] = 'attachment; filename="Excel_test.xls"'
     message.attach(att1)
