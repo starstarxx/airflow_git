@@ -27,8 +27,8 @@ default_args = {
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 1,
-    'retry_delay': timedelta(minutes=5),
-    'start_date': datetime1(datetime1.now())
+    'retry_delay': timedelta(seconds=10),
+    'start_date': datetime1.now()-timedelta(minutes=1)
     # 'queue': 'bash_queue',
     # 'pool': 'backfill',
     # 'priority_weight': 10,
@@ -49,7 +49,8 @@ with DAG(
     'air_pipeline',
     default_args=default_args,
     description='A simple tutorial DAG',
-    schedule_interval=timedelta(seconds=3600),
+    schedule_interval=timedelta(minutes=1),
+    catchup=False,
     #start_date=days_ago(2),
     tags=['test'],
 ) as dag:
