@@ -32,7 +32,7 @@ mail_pass = "ASDURZJJOGVTGFBQ" # 口令
 sender = 'm13261740842@163.com' #发送者名称
 receivers = '2499714067@qq.com'  # 接收邮件地址
 #
-Excel_name = datetime.datetime.now().date().isoformat() + '外汇牌价.xls'
+Excel_name = datetime.datetime.now().date().isoformat() +'-'+str (datetime.datetime.now().hour)+'外汇牌价.xls'
 #
 
 
@@ -72,7 +72,7 @@ def web_download():
         if i !=0:
             tables.append(array.copy())
       
-    workbook.save(Excel_name)
+    workbook.save('./file/'+Excel_name)
     return tables        
 def smtp_send():
     #创建一个带附件的实例
@@ -84,11 +84,12 @@ def smtp_send():
     #邮件正文内容
     message.attach(MIMEText('外汇牌价表格发送邮件', 'plain', 'utf-8'))
     # 构造附件1，传送当前目录下的 Excel 
-    file_excel = open(Excel_name, 'rb')
+    file_excel = open('./file/'+Excel_name, 'rb')
     att1 = MIMEText(file_excel.read(), 'base64', 'utf-8')
     file_excel.close()
     att1["Content-Type"] = 'application/octet-stream'
-    att1["Content-Disposition"] = 'attachment; filename="Excel_test.xls"'
+    send_file ='attachment; filename="%s.xls"'%Excel_name[0:13]
+    att1["Content-Disposition"] = send_file
     message.attach(att1)
      
     
